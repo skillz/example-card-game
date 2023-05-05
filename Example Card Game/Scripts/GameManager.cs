@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
   private void Awake()
   {
-    scoreSummary = new ScoreSummary();
+    scoreSummary = new ScoreSummary(scoreText);
     Manager.game = this;
     timeRemaining = 100;
     UpdateTime();

@@ -3310,7 +3310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf6079da2adb048f884313b41570ddc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSceneName: CGE Game Scene
+  gameSceneName: ECG Game Scene
 --- !u!4 &1563371011
 Transform:
   m_ObjectHideFlags: 0

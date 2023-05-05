@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ScoreSummary
 {
   public Dictionary<Hand.HandType, ScoreItem> scoreItems;
 
-  public ScoreSummary()
+  private TextMeshProUGUI scoreText;
+
+  public ScoreSummary(TextMeshProUGUI scoreText)
   {
+    this.scoreText = scoreText;
     scoreItems = new Dictionary<Hand.HandType, ScoreItem>();
   }
 
@@ -21,11 +25,13 @@ public class ScoreSummary
     {
       scoreItems.Add(scoreItem.handType, scoreItem);
     }
+    scoreText.text = GetScore().ToString();
   }
 
   public void ClearScore()
   {
     scoreItems.Clear();
+    scoreText.text = GetScore().ToString();
   }
 
   public int GetScore()
@@ -45,11 +51,9 @@ public class ScoreItem
   Card.ranks highRank;
   int amount;
   int score;
-  bool isTimeScore;
 
   public ScoreItem(int score, float timeRemaining)
   {
-    this.isTimeScore = true;
     this.score = (int)timeRemaining;
     this.handType = Hand.HandType.EMPTY;
   }
