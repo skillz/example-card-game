@@ -11,7 +11,7 @@ public class ButtonAnimator : MonoBehaviour
 
   private Vector3 orignalScale;
 
-  private void Awake()
+  private void Start()
   {
     orignalScale = button.transform.localScale;
   }

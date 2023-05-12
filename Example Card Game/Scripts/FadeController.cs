@@ -7,7 +7,6 @@ public class FadeController : MonoBehaviour
 {
   [SerializeField] private bool isFadeIn;
   [SerializeField] private bool fadeOnEnable;
-  [SerializeField] private float fadeDuration;
   [SerializeField] private CanvasGroup canvasGroup;
   [SerializeField] private UnityEvent onFadeFinished;
   public AnimationProfile fadeAnimationProfile;
@@ -56,18 +55,18 @@ public class FadeController : MonoBehaviour
   {
     if (isfading)
     {
-      if (Time.realtimeSinceStartup - fadeStartTime > fadeDuration || fadeDuration == 0)
+      if (Time.realtimeSinceStartup - fadeStartTime > fadeAnimationProfile.duration || fadeAnimationProfile.duration == 0)
       {
         EndFade();
         return;
       }
       if (isFadeIn)
       {
-        canvasGroup.alpha = fadeAnimationProfile.animationCurve.Evaluate( 1 - (Time.realtimeSinceStartup - fadeStartTime) / fadeDuration );
+        canvasGroup.alpha = fadeAnimationProfile.animationCurve.Evaluate( 1 - (Time.realtimeSinceStartup - fadeStartTime) / fadeAnimationProfile.duration );
       }
       else
       {
-        canvasGroup.alpha = fadeAnimationProfile.animationCurve.Evaluate( (Time.realtimeSinceStartup - fadeStartTime) / fadeDuration );
+        canvasGroup.alpha = fadeAnimationProfile.animationCurve.Evaluate( (Time.realtimeSinceStartup - fadeStartTime) / fadeAnimationProfile.duration );
       }
     }
   }

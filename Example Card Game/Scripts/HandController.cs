@@ -7,12 +7,13 @@ using TMPro;
 public class HandController : MonoBehaviour
 {
   public Hand hand;
+  public HandScoreAnimation handScoreAnimation;
   public List<CardController> cardControllers;
   public GameObject cardTarget;
   public Button handButton;
   public TextMeshProUGUI handText;
 
-  private int handScore = 0;
+  public int handScore = 0;
 
   public void Awake()
   {
@@ -36,7 +37,8 @@ public class HandController : MonoBehaviour
 
     if (hand.cards.Count >= 5)
     {
-      SubmitHandScore();
+      handButton.enabled = false;
+      Invoke("SubmitHandScore", .5f);
     }
   }
 
@@ -57,9 +59,8 @@ public class HandController : MonoBehaviour
         cardTransform.rotation = Quaternion.Euler(0, 0, 0);
         cardTransform.localScale = new Vector3(1, 1, 1);
         cardTransform.position = Manager.game.deckController.topCard.GetComponent<RectTransform>().position;
-        Debug.Log(Manager.game.deckController.topCard.GetComponent<RectTransform>().position);
 
-        cardControllers[i].SetCard(hand.cards[i]);
+        cardControllers[i].SetCard(hand.cards[i], Manager.game.deckController.deck.wild);
 
         cardTarget.GetComponent<RectTransform>().rotation = GetCardRotation(i);
 
@@ -75,7 +76,7 @@ public class HandController : MonoBehaviour
         }
         else
         {
-          cardControllers[i].SetCard(null);
+          cardControllers[i].SetCard(null, Card.ranks.TWO);
         }
       }
     }
@@ -90,8 +91,8 @@ public class HandController : MonoBehaviour
   public void SubmitHandScore()
   {
     Manager.game.scoreSummary.AddScore(new ScoreItem(hand.handType, handScore, hand.highRank));
-    handButton.enabled = false;
-    Invoke("ClearHand", .6f);
+    handScoreAnimation.AnimateHandScore(this, 1.35f);
+    Invoke("ClearHand", 1.35f);
   }
 
   private void ClearHand()
