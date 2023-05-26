@@ -10,24 +10,41 @@ public class GameManager : MonoBehaviour
   public DeckController deckController;
   public List<HandController> hands;
   public TextMeshProUGUI timeText;
-  public TextMeshProUGUI scoreText;
-  public GameObject PostGameMenu;
-  public TextMeshProUGUI PostGameScore;
+  public ScoreTicker scoreTicker;
+  public MatchCompleteFlow matchCompleteFlow;
   public ScoreSummary scoreSummary;
   public bool isMatchRunning;
+  [HideInInspector] public float timeRemaining;
 
-  private float timeRemaining;
+  private int matchTime = 90;
 
   private void Awake()
   {
-    scoreSummary = new ScoreSummary(scoreText);
-    Manager.game = this;
-    timeRemaining = 100;
-    UpdateTime();
+    InitializeGameManager();
   }
 
   private void Update()
   {
+    UpdateTime();
+  }
+
+  public void PlayAgain()
+  {
+    RestartGame();
+  }
+
+  public void GameFinished()
+  {
+    isMatchRunning = false;
+    matchCompleteFlow.StartFlow();
+    HandesEnabled(false);
+  }
+
+  private void InitializeGameManager()
+  {
+    scoreSummary = new ScoreSummary(scoreTicker);
+    Manager.game = this;
+    timeRemaining = matchTime;
     UpdateTime();
   }
 
@@ -39,30 +56,6 @@ public class GameManager : MonoBehaviour
     {
       timeRemaining -= Time.deltaTime;
     }
-  }
-
-  public void GameFinished()
-  {
-    isMatchRunning = false;
-
-    scoreSummary.AddScore(new ScoreItem((int)(timeRemaining * 2), timeRemaining));
-
-    foreach (HandController hand in hands)
-    {
-      hand.SubmitHandScore();
-    }
-    PostGameMenu.SetActive(true);
-    PostGameMenu.GetComponentInChildren<ScoreSummaryController>().DisplayScoreSummary(scoreSummary);
-  }
-
-  public void RestartGame()
-  {
-    PostGameMenu.SetActive(false);
-    deckController.InitializeDeck();
-    timeRemaining = 120;
-    SetTime(timeRemaining);
-    scoreSummary.ClearScore();
-    scoreText.text = scoreSummary.GetScore().ToString();
   }
 
   public void SetTime(float timeRemaining)
@@ -86,6 +79,24 @@ public class GameManager : MonoBehaviour
           GameFinished();
         }
       }
+    }
+  }
+
+  private void RestartGame()
+  {
+    matchCompleteFlow.ResetFlow();
+    deckController.InitializeDeck();
+    timeRemaining = matchTime;
+    SetTime(timeRemaining);
+    scoreSummary.ClearScore();
+    HandesEnabled(true);
+  }
+
+  private void HandesEnabled(bool enabled)
+  {
+    foreach (HandController hand in hands)
+    {
+      hand.handButton.enabled = enabled;
     }
   }
 }

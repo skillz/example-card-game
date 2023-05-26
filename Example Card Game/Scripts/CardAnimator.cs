@@ -14,6 +14,14 @@ public class CardAnimator : MonoBehaviour
   private Vector3 startScale, targetScale;
   private Quaternion startRotation, targetRotation;
 
+  public void Awake()
+  {
+    RectTransform transform = gameObject.GetComponent<RectTransform>();
+    startPostion = transform.anchoredPosition;
+    startScale = transform.localScale;
+    startRotation = transform.rotation;
+  }
+
   public void Animate(GameObject target)
   {
     isAnimating = true;
@@ -29,15 +37,23 @@ public class CardAnimator : MonoBehaviour
     targetScale = targetTransform.localScale;
     targetRotation = targetTransform.rotation;
 
-    startTime = Time.timeSinceLevelLoad;
+    startTime = Time.time;
+  }
 
+  public void Reset()
+  {
+    RectTransform transform = gameObject.GetComponent<RectTransform>();
+
+    transform.anchoredPosition = startPostion;
+    transform.localScale = startScale;
+    transform.localRotation = startRotation;
   }
 
   public void Update()
   {
     if (isAnimating)
     {
-      float timePassed = Time.timeSinceLevelLoad - startTime;
+      float timePassed = Time.time - startTime;
 
       RectTransform transform = gameObject.GetComponent<RectTransform>();
 
@@ -52,7 +68,5 @@ public class CardAnimator : MonoBehaviour
         isAnimating = false;
       }
     }
-
-    
   }
 }

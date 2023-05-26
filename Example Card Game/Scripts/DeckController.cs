@@ -7,8 +7,11 @@ public class DeckController : MonoBehaviour
 {
   public CardDeck deck;
   public CardController topCard;
-  public CardController wildCard;
   public TextMeshProUGUI deckText;
+
+  public GameObject bottomCardsContainer;
+
+  private List<CardController> bottomCards;
 
   public void Awake()
   {
@@ -22,23 +25,58 @@ public class DeckController : MonoBehaviour
     deck.Shuffle();
     deck.SetWild();
 
-    deckText.text = deck.CardsLeft().ToString();
-    topCard.SetCard(deck.TakeTopCard());
-
-    wildCard.SetCard(new Card(deck.wild, Card.suites.SPADES));
+    InitializeBottomCards();
+    ShowNextCard();
   }
 
   public void ShowNextCard()
   {
     if (deck.IsEmpty())
     {
-      topCard.SetCard(null);
+      topCard.SetCard(null, Card.ranks.TWO);
       Debug.Log("Deck Is Empty - Ending Game");
       Manager.game.GameFinished();
       deckText.text = "0";
       return;
     }
     deckText.text = deck.CardsLeft().ToString();
-    topCard.SetCard(deck.TakeTopCard());
+    topCard.SetCard(deck.TakeTopCard(), deck.wild);
+
+    DisplayBottomCards();
+  }
+
+  private void InitializeBottomCards()
+  {
+    bottomCards = new List<CardController>(bottomCardsContainer.GetComponentsInChildren<CardController>(true));
+    bottomCards.Reverse();
+
+    Vector3 bottomCardsPosition = bottomCards[0].GetComponent<RectTransform>().position;
+    int ct = 0;
+
+    foreach (CardController c in bottomCards)
+    {
+      ct++;
+      c.GetComponent<RectTransform>().position = bottomCardsPosition + new Vector3(0, -1.2f * ct, 0);
+    }
+
+    DisplayBottomCards();
+  }
+
+  private void DisplayBottomCards()
+  {
+    int ct = 0;
+    foreach (CardController c in bottomCards)
+    {
+      ct++;
+      if (ct > deck.CardsLeft())
+      {
+        c.gameObject.SetActive(false);
+      }
+      else
+      {
+        c.gameObject.SetActive(true);
+      }
+    }
+
   }
 }

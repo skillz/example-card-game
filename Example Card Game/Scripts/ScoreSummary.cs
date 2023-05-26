@@ -7,11 +7,11 @@ public class ScoreSummary
 {
   public Dictionary<Hand.HandType, ScoreItem> scoreItems;
 
-  private TextMeshProUGUI scoreText;
+  private ScoreTicker scoreTicker;
 
-  public ScoreSummary(TextMeshProUGUI scoreText)
+  public ScoreSummary(ScoreTicker scoreText)
   {
-    this.scoreText = scoreText;
+    this.scoreTicker = scoreText;
     scoreItems = new Dictionary<Hand.HandType, ScoreItem>();
   }
 
@@ -25,13 +25,21 @@ public class ScoreSummary
     {
       scoreItems.Add(scoreItem.handType, scoreItem);
     }
-    scoreText.text = GetScore().ToString();
+
+    if (scoreItem.isTimeScore)
+    {
+      scoreTicker.AddScore(GetScore(), scoreItem, "Time Bonus ");
+    }
+    else
+    {
+      scoreTicker.AddScore(GetScore(), scoreItem);
+    }
   }
 
   public void ClearScore()
   {
     scoreItems.Clear();
-    scoreText.text = GetScore().ToString();
+    scoreTicker.ResetScore();
   }
 
   public int GetScore()
@@ -48,14 +56,17 @@ public class ScoreSummary
 public class ScoreItem
 {
   public Hand.HandType handType;
-  Card.ranks highRank;
-  int amount;
-  int score;
+  public bool isTimeScore;
 
-  public ScoreItem(int score, float timeRemaining)
+  private Card.ranks highRank;
+  private int amount;
+  private int score;
+
+  public ScoreItem(int score)
   {
-    this.score = (int)timeRemaining;
+    this.score = score;
     this.handType = Hand.HandType.EMPTY;
+    this.isTimeScore = true;
   }
 
   public ScoreItem(Hand.HandType handType, int score, Card.ranks highRank = Card.ranks.TWO)
