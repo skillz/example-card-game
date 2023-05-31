@@ -15,7 +15,7 @@ public class CardDeck
       for (int r = 0; r < 13; r++)
       {
         Card.ranks rank = (Card.ranks)r;
-        Card.suites suite = (Card.suites)s;
+        Card.suits suite = (Card.suits)s;
         
         deck.Add(new Card(rank, suite));
       }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayButtonController : MonoBehaviour
 {
   public FadeController fadeOutController;
-  public ButtonAnimator buttonAnimator;
   public StartMenuManager startMenuManager;
 
   public void PlayButtonPressed()
