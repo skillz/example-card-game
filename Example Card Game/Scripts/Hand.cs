@@ -60,7 +60,7 @@ public class Hand
       return;
     }
 
-    if (OfAKind(3) && OfAKind(2) && cards.Count == 5 || wildCount == 1 && TwoPair(false) && cards.Count == 5)
+    if (FullHouse())
     {
       handType = HandType.FULL_HOUSE;
       return;
@@ -118,18 +118,7 @@ public class Hand
 
   private bool OfAKind(int amount)
   {
-    Dictionary<int, int> sortedCards = new Dictionary<int, int>();
-    foreach (Card c in cardsLessWilds)
-    {
-      if (sortedCards.ContainsKey((int)c.rank))
-      {
-        sortedCards[(int)c.rank] += 1;
-      }
-      else
-      {
-        sortedCards.Add((int)c.rank, 1);
-      }
-    }
+    Dictionary<int, int> sortedCards = GetSortedCardsMap();
     foreach (int i in sortedCards.Keys)
     {
       int numcards = sortedCards[i];
@@ -149,18 +138,8 @@ public class Hand
 
   private bool TwoPair(bool useWilds = true)
   {
-    Dictionary<int, int> sortedCards = new Dictionary<int, int>();
-    foreach (Card c in cardsLessWilds)
-    {
-      if (sortedCards.ContainsKey((int)c.rank))
-      {
-        sortedCards[(int)c.rank] += 1;
-      }
-      else
-      {
-        sortedCards.Add((int)c.rank, 1);
-      }
-    }
+    Dictionary<int, int> sortedCards = GetSortedCardsMap();
+
     int pairCount = 0;
     foreach (int i in sortedCards.Keys)
     {
@@ -184,18 +163,44 @@ public class Hand
     return pairCount == 2;
   }
 
+  private bool FullHouse()
+  {
+    if(TwoPair(false) && wildCount == 1)
+    {
+      return true;
+    }
+
+    Dictionary<int, int> sortedCards = GetSortedCardsMap();
+
+    int pairCount = 0;
+    int tripleCount = 0;
+    foreach (int i in sortedCards.Keys)
+    {
+      if (sortedCards[i] == 2)
+      {
+        pairCount++;
+      }
+
+      if (sortedCards[i] == 3)
+      {
+        tripleCount++;
+      }
+    }
+    return pairCount == 1 && tripleCount == 1;
+  }
+
   private bool Flush()
   {
     Dictionary<int, int> sortedCards = new Dictionary<int, int>();
     foreach (Card c in cardsLessWilds)
     {
-      if (sortedCards.ContainsKey((int)c.suite))
+      if (sortedCards.ContainsKey((int)c.suit))
       {
-        sortedCards[(int)c.suite] += 1;
+        sortedCards[(int)c.suit] += 1;
       }
       else
       {
-        sortedCards.Add((int)c.suite, 1);
+        sortedCards.Add((int)c.suit, 1);
       }
     }
     foreach (int i in sortedCards.Keys)
@@ -219,6 +224,7 @@ public class Hand
     {
       return false;
     }
+
     int wildsLeft = wildCount;
     for (int i = highestRank; i > highestRank - 5; i--)
     {
@@ -265,5 +271,22 @@ public class Hand
       }
     }
     return highestRank;
+  }
+
+  private Dictionary<int, int> GetSortedCardsMap()
+  {
+    Dictionary<int, int> sortedCards = new Dictionary<int, int>();
+    foreach (Card c in cardsLessWilds)
+    {
+      if (sortedCards.ContainsKey((int)c.rank))
+      {
+        sortedCards[(int)c.rank] += 1;
+      }
+      else
+      {
+        sortedCards.Add((int)c.rank, 1);
+      }
+    }
+    return sortedCards;
   }
 }

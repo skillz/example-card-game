@@ -125,12 +125,12 @@ public class HandController : MonoBehaviour
     }
     if (hand.handType == Hand.HandType.TWO_PAIR)
     {
-      handScore = 250;
+      handScore = 200;
       handText.text = "Two Pair";
     }
     if (hand.handType == Hand.HandType.THREE_OF_A_KIND)
     {
-      handScore = 350;
+      handScore = 300;
       handText.text = "Three of a Kind";
     }
     if (hand.handType == Hand.HandType.STRAIGHT)

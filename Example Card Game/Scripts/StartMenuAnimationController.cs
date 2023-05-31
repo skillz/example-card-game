@@ -64,7 +64,7 @@ public class StartMenuAnimationController : MonoBehaviour
 
   private void PulseButton()
   {
-    buttonAnimator.GetComponent<ButtonAnimator>().enabled = true;
+    buttonAnimator.GetComponent<PulseAnimator>().enabled = true;
   }
 
   private void AnimateCards()

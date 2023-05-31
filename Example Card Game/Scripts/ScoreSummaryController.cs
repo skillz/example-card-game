@@ -28,7 +28,7 @@ public class ScoreSummaryController : MonoBehaviour
       item.Reset();
     }
     playAgainButton.GetComponent<CardAnimator>().Reset();
-    playAgainButton.GetComponent<ButtonAnimator>().enabled = false;
+    playAgainButton.GetComponent<PulseAnimator>().enabled = false;
   }
 
   public void DisableButton()
@@ -66,6 +66,6 @@ public class ScoreSummaryController : MonoBehaviour
 
   private void PulseButton()
   {
-    playAgainButton.GetComponent<ButtonAnimator>().enabled = true;
+    playAgainButton.GetComponent<PulseAnimator>().enabled = true;
   }
 }

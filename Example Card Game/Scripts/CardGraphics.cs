@@ -9,7 +9,7 @@ public class CardGraphics : ScriptableObject
 
   public Texture GetCardFaceSprite(Card card)
   {
-    int cardIndex = ((int)card.rank * 4) + (int)card.suite;
+    int cardIndex = ((int)card.rank * 4) + (int)card.suit;
     if(cardIndex >= 0 && cardIndex < 52)
     {
       return cardFaces[cardIndex];

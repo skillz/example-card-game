@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonAnimator : MonoBehaviour
+public class PulseAnimator : MonoBehaviour
 {
-  [SerializeField] Button button;
   public float pulseSpeed = 1f;
   public float pulseMagnitude = .05f;
 
@@ -13,11 +12,11 @@ public class ButtonAnimator : MonoBehaviour
 
   private void Start()
   {
-    orignalScale = button.transform.localScale;
+    orignalScale = transform.localScale;
   }
 
   private void Update()
   {
-    button.transform.localScale = orignalScale + Vector3.one * (Mathf.Sin(Time.realtimeSinceStartup * pulseSpeed) * pulseMagnitude);
+    transform.localScale = orignalScale + Vector3.one * (Mathf.Sin(Time.realtimeSinceStartup * pulseSpeed) * pulseMagnitude);
   }
 }
