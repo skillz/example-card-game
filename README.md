@@ -24,7 +24,7 @@ The version contained in the [Example Card Game - Skillz folder](https://github.
 
 This version contains the final product after the changes shown in the [Developer Tutorial Video Series]() are implemented.
 
-### Example Card Game - Skillz
+### Using Example Card Game - Skillz
 
 1. Clone the repository using `gh repo clone skillz/example-card-game`, or by cloning the repository using your favorite Git client.
 
@@ -40,6 +40,6 @@ This version contains the final product after the changes shown in the [Develope
 
 [Skillz Developer Documentation](https://docs.skillz.com/docs/welcome)
 
-[Skillz Developer Video Series]()
+[Developer Tutorial Video Series]()
 
 
