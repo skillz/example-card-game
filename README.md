@@ -6,7 +6,7 @@ This repository contains two versions of the `Example Card Game`. This is a Unit
 
 The version contained in the [Example Card Game folder](https://github.com/skillz/example-card-game/tree/main/Example%20Card%20Game) does not have the Skillz SDK integrated.
 
-This version is intended to be used alongside the [Developer Video Series]() to follow along and learn to integrate a Skillz game.
+This version is intended to be used alongside the [Skillz Developer Tutorial Video Series](https://youtube.com/playlist?list=PLmAtrlfcxO0C8QzUjdTT8HguxnjmsyXpN) to follow along and learn to integrate a Skillz game.
 
 ### Using The Example Card Game
 
@@ -16,7 +16,7 @@ This version is intended to be used alongside the [Developer Video Series]() to 
 
 3. Copy the `Example Card Game` folder into the assets folder of your project.
 
-4. Follow the [Developer Tutorial Video Series]() to learn how to integrate the Skillz Unity SDK.
+4. Follow the [Skillz Developer Tutorial Video Series](https://youtube.com/playlist?list=PLmAtrlfcxO0C8QzUjdTT8HguxnjmsyXpN) to learn how to integrate the Skillz Unity SDK.
 
 ## Example Card Game - Skillz
 
@@ -40,6 +40,6 @@ This version contains the final product after the changes shown in the [Develope
 
 [Skillz Developer Documentation](https://docs.skillz.com/docs/welcome)
 
-[Developer Tutorial Video Series]()
+[Skillz Developer Tutorial Video Series](https://youtube.com/playlist?list=PLmAtrlfcxO0C8QzUjdTT8HguxnjmsyXpN)
 
 
