@@ -22,7 +22,7 @@ This version is intended to be used alongside the [Skillz Developer Tutorial Vid
 
 The version contained in the [Example Card Game - Skillz folder](https://github.com/skillz/example-card-game/tree/main/Example%20Card%20Game%20-%20Skillz) includes the code changes required to integrate with the Skillz Unity SDK.
 
-This version contains the final product after the changes shown in the [Developer Tutorial Video Series]() are implemented.
+This version contains the final product after the changes shown in the [Skillz Developer Tutorial Video Series](https://youtube.com/playlist?list=PLmAtrlfcxO0C8QzUjdTT8HguxnjmsyXpN) are implemented.
 
 ### Using Example Card Game - Skillz
 
